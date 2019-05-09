@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:muscle_training_list/unit.dart';
 import 'category.dart';
 
 final _backgroundColor = Colors.yellow[100];
@@ -51,6 +52,16 @@ class CategoryRoute extends StatelessWidget {
       itemCount: categories.length,
     );
   }
+  /// Returns a list of mock [Unit]s.
+  List<Unit> _retrieveUnitList(String categoryName) {
+    return List.generate(10, (int i) {
+      i += 1;
+      return Unit(
+        name: '$categoryName Unit $i',
+        conversion: i.toDouble(),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +74,7 @@ class CategoryRoute extends StatelessWidget {
         name: _categoryNames[i],
         color: _baseColors[i],
         iconLocation: Icons.directions_run,
+        units: _retrieveUnitList(_categoryNames[i])
       ));
     }
 
