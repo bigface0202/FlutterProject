@@ -46,6 +46,28 @@ class CategoryRoute extends StatelessWidget {
     Colors.blueAccent,
   ];
 
+  static const _trainingNames = <List>[
+    <String>['Shoulder press',
+    'Up right low',
+    ],
+    <String>['Barbell bench press',
+    'Dumbell press'],
+    <String>['Deadlift',
+    'Lat pull down'],
+    <String>['Arm curl',
+    'Barbell curl'],
+    <String>['Wrist curl',
+    'Wrist twist'],
+    <String>['Barbell squat',
+    'Dumbell squat'],
+    <String>['Barbell calf raises',
+    'Dumbell calf raises'],
+    <String>['Leg up',
+    'Crunch'],
+    <String>['Running',
+    'Bike'],
+    ];
+
   Widget _buildCategoryWidgets(List<Widget> categories) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) => categories[index],
@@ -54,10 +76,10 @@ class CategoryRoute extends StatelessWidget {
   }
   /// Returns a list of mock [Unit]s.
   List<Unit> _retrieveUnitList(String categoryName) {
-    return List.generate(10, (int i) {
+    return List.generate(8, (int i) {
       i += 1;
       return Unit(
-        name: '$categoryName Unit $i',
+        name: _trainingNames[i][0],
         conversion: i.toDouble(),
       );
     });
