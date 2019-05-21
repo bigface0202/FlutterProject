@@ -51,7 +51,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
         labelText: 'Enter password',
         hintText: 'Password',
       ),
-      validator: validatePassword(),
+      validator: validatePassword,
       onSaved: (String value) {
         password = value;
       },
