@@ -13,5 +13,7 @@ class ValidationMixin {
     if (value.length < 4) {
       return 'Password must be at least 4 characters';
     }
+
+    return null;
   }
 }
