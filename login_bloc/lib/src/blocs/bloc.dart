@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'validators.dart';
 
-class Bloc extends Object with  Validators {
+class Bloc extends Object with Validators {
   //アンダースコアつけるとprivateになる
   //classで引っ張った時に見えなくなる
   final _email = StreamController<String>();
@@ -15,8 +15,10 @@ class Bloc extends Object with  Validators {
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changePassword => _password.sink.add;
 
-  dispose(){
+  dispose() {
     _email.close();
     _password.close();
   }
 }
+
+final bloc = Bloc();
