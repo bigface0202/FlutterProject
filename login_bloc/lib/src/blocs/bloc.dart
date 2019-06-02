@@ -1,24 +1,35 @@
 import 'dart:async';
 import 'validators.dart';
+import 'package:rxdart/rxdart.dart';
 
 class Bloc extends Object with Validators {
   //アンダースコアつけるとprivateになる
   //classで引っ張った時に見えなくなる
-  final _email = StreamController<String>();
-  final _password = StreamController<String>();
+  //broadcastを付ける事によって，2つ以上のデータを受けることができる
+  final _email = BehaviorSubject<String>();
+  final _password = BehaviorSubject<String>();
+  //BehaviorSubjectはスペシャルなStreamController,デフォルトでbroadcast controller(Singleではない)
+  //BehaviorSubjectはコントローラー(Streamcontroller?)にAddされた変数をcaptureすることができる
 
   // Add data to stream
   Stream<String> get email => _email.stream.transform(validateEmail);
   Stream<String> get password => _password.stream.transform(validatePassword);
-
+  Stream<bool> get submitValid =>
+      Observable.combineLatest2(email, password, (e, p) => true);
   // Change data
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changePassword => _password.sink.add;
+
+  submit() {
+    final validEmail = _email.value;
+    final validPassword = _password.value;
+
+    print('Email is $validEmail');
+    print('Passward is $validPassword');
+  }
 
   dispose() {
     _email.close();
     _password.close();
   }
 }
-
-final bloc = Bloc();
