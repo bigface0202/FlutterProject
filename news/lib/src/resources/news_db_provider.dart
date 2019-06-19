@@ -6,27 +6,26 @@ import 'dart:async';
 import '../models/item_model.dart';
 import 'repository.dart';
 
-class NewsDbProvider implements Source, Cache{
+class NewsDbProvider implements Source, Cache {
   Database db; //Coming from sqflite.dart
 
-  NewsDbProvider(){
+  NewsDbProvider() {
     init();
   }
 
   //Todo - store and fetch top ids
-  Future<List<int>>fetchTopIds(){
+  Future<List<int>> fetchTopIds() {
     return null;
   }
 
   init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, "items.db");
-    db = await openDatabase(
-      path,
-      version: 1,
-      onCreate: (Database newDb, int version){ //Initial setup
+    db = await openDatabase(path, version: 1,
+        onCreate: (Database newDb, int version) {
+      //Initial setup
       //"""":multi line string, PRIMARY KEYにするとDBのindexとして認識される
-        newDb.execute("""
+      newDb.execute("""
           CREATE TABLE Items
           (
             id INTEGER PRIMARY KEY,
@@ -43,29 +42,35 @@ class NewsDbProvider implements Source, Cache{
             title TEXT,
             descendants INTEGER
           )
-        """
-        );
-      }
-    );
+        """);
+    });
   }
-  
+
   Future<ItemModel> fetchItem(int id) async {
     final maps = await db.query(
       "Items",
       columns: null,
-      where: "id = ?",//?にwhereArgsのidが入る
+      where: "id = ?", //?にwhereArgsのidが入る
       whereArgs: [id],
     );
 
-    if (maps.length > 0){
+    if (maps.length > 0) {
       return ItemModel.fromDb(maps.first);
     }
 
     return null;
   }
 
-  Future<int> addItem(ItemModel item)  {
-    return db.insert("Items", item.toMap());
+  Future<int> addItem(ItemModel item) {
+    return db.insert(
+      "Items",
+      item.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+  }
+
+  Future<int> clear() {
+    return db.delete('Items');
   }
 }
 
