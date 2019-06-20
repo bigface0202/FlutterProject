@@ -13,10 +13,14 @@ class App extends StatelessWidget {
   }
 
   Route routes(RouteSettings settings) {
-    if (settings.name == '/test') {
+    final itemId = int.parse(settings.name.replaceFirst('/muscle', ''));
+    final address = settings.name.substring(0, 7);
+    if (address == '/muscle') {
       return MaterialPageRoute(
         builder: (context) {
-          return DateScreen();
+          return DateScreen(
+            itemId: itemId,
+          );
         },
       );
     }

@@ -27,8 +27,7 @@ class IndexScreen extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
-            print('Tap');
-            Navigator.pushNamed(context, '/test');
+            Navigator.pushNamed(context, '/muscle$index');
           },
           child: Card(
             child: Padding(
