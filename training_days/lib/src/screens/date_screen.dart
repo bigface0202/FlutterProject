@@ -22,6 +22,22 @@ class DateScreen extends StatefulWidget {
 }
 
 class _DateScreenState extends State<DateScreen> {
+  DateTime selectedDate = DateTime.now();
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != selectedDate)
+      setState(
+        () {
+          selectedDate = picked;
+        },
+      );
+  }
+
   @override
   build(context) {
     return Scaffold(
@@ -33,21 +49,6 @@ class _DateScreenState extends State<DateScreen> {
   }
 
   Widget chooseDateTime(BuildContext context) {
-    DateTime selectedDate = DateTime.now();
-    Future<Null> _selectDate(BuildContext context) async {
-      final DateTime picked = await showDatePicker(
-          context: context,
-          initialDate: selectedDate,
-          firstDate: DateTime(2015, 8),
-          lastDate: DateTime(2101));
-      if (picked != null && picked != selectedDate)
-        setState(
-          () {
-            selectedDate = picked;
-          },
-        );
-    }
-
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
