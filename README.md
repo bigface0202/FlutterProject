@@ -1,3 +1,3 @@
 FlutterProject
 ## Training list with DatePicker
-![result](https://github.com/bigface0202/FlutterProject/tree/master/gif)
+![sample1](https://github.com/bigface0202/FlutterProject/blob/master/gif/First_flutter.gif)
