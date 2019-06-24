@@ -1,112 +1,50 @@
 import 'package:flutter/material.dart';
-
-final _categoryNames = <String>[
-  'Shoulder',
-  'Chest',
-  'Back',
-  'Arm',
-  'Leg',
-  'Abdominal',
-  'Aerobics',
-];
+import '../widget/training_menu.dart';
+import '../menu/menu.dart';
+import '../screens/date_screen.dart';
 
 class IndexScreen extends StatefulWidget {
-  IndexScreen({Key key, this.title}) : super(key: key);
-  final String title;
-
+  IndexScreen({Key key, this.menu}) : super(key: key);
+  List<Menu> menu;
   @override
-  _IndexScreenState createState() => _IndexScreenState();
+  _IndexScreenState createState() {
+    return new _IndexScreenState();
+  }
 }
 
-//State is information of the application that can change over time or when some actions are taken.
 class _IndexScreenState extends State<IndexScreen> {
-  List<bool> inputs = new List<bool>();
-  @override
-  void initState() {
-    // TODO: implement initState
-    setState(() {
-      for (int i = 0; i < 7; i++) {
-        inputs.add(false);
-      }
-    });
-  }
-
-  void itemChange(bool val, int index) {
-    setState(() {
-      inputs[index] = val;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _categoryNames.length,
-      itemBuilder: (BuildContext context, int index) {
-        return new Card(
-          child: new Container(
-            padding: new EdgeInsets.all(5.0),
-            child: new Column(
-              children: <Widget>[
-                trainingList(index),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget trainingList(int index) {
-    return new CheckboxListTile(
-      value: inputs[index],
-      title: new Text('${_categoryNames[index]}'),
-      controlAffinity: ListTileControlAffinity.leading,
-      onChanged: (bool val) {
-        itemChange(val, index);
-      },
-    );
-  }
-
-  Widget submitButton() {
-    return RaisedButton(
-      color: Colors.blue[300],
-      child: Text('Submit'),
-      onPressed: () {
-        print('Tap');
-      },
+    return new Container(
+      padding: new EdgeInsets.all(8.0),
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          new Expanded(
+              child: new ListView(
+            padding: new EdgeInsets.symmetric(vertical: 8.0),
+            children: widget.menu.map((Menu menu) {
+              return new TrainingItemList(menu);
+            }).toList(),
+          )),
+          new RaisedButton(
+            onPressed: () {
+              // Navigator.pushNamed(context, '/muscle');
+              Navigator.push(
+                context,
+                new MaterialPageRoute<Null>(
+                  settings: const RouteSettings(name: "/muscle"),
+                  builder: (BuildContext context) => DateScreen(widget.menu),
+                ),
+              );
+              for (Menu p in widget.menu) {
+                if (p.isCheck) print(p.name);
+              }
+            },
+            child: new Text('Save'),
+          )
+        ],
+      ),
     );
   }
 }
-
-// class IndexScreen extends StatelessWidget {
-//   build(context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Trainning list'),
-//       ),
-//       body: buildList(),
-//     );
-//   }
-
-//   Widget buildList() {
-//     return ListView.builder(
-//       itemBuilder: (BuildContext context, int index) {
-//         return InkWell(
-//           onTap: () {
-//             Navigator.pushNamed(context, '/muscle$index');
-//           },
-//           child: Card(
-//             child: Padding(
-//               child: Text(
-//                 _categoryNames[index],
-//                 style: TextStyle(fontSize: 22.0),
-//               ),
-//               padding: EdgeInsets.all(20.0),
-//             ),
-//           ),
-//         );
-//       },
-//       itemCount: _categoryNames.length,
-//     );
-//   }
-// }

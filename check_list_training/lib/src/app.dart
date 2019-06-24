@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'screens/index_screen.dart';
+import 'menu/menu.dart';
+import 'screens/date_screen.dart';
 // import 'screens/date_screen.dart';
+
+List<Menu> trainingMenu = [
+  new Menu('Shoulder', false),
+  new Menu('Chest', false),
+  new Menu('Back', false),
+  new Menu('Arm', false),
+  new Menu('Leg', false),
+  new Menu('Abdominal', false),
+  new Menu('Aerobics', false),
+];
 
 class App extends StatelessWidget {
   Widget build(context) {
@@ -9,24 +21,8 @@ class App extends StatelessWidget {
         appBar: AppBar(
           title: Text('Training list'),
         ),
-        body: IndexScreen(),
+        body: IndexScreen(menu: trainingMenu),
       ),
-      // onGenerateRoute: routes,
     );
   }
 }
-
-//   Route routes(RouteSettings settings) {
-//     final itemId = int.parse(settings.name.replaceFirst('/muscle', ''));
-//     final address = settings.name.substring(0, 7);
-//     if (address == '/muscle') {
-//       return MaterialPageRoute(
-//         builder: (context) {
-//           return DateScreen(
-//             itemId: itemId,
-//           );
-//         },
-//       );
-//     }
-//   }
-// }
