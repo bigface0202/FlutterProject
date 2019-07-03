@@ -14,7 +14,14 @@ class _DateScreenState extends State<DateScreen> {
       appBar: AppBar(
         title: Text('Good workout!!'),
       ),
-      body: showDoneOfTraining(),
+      body: Column(
+        children: <Widget>[
+        new Expanded(
+          child: showDoneOfTraining()
+          ),
+          submitButton(),
+        ],
+      ),
     );
   }
 
@@ -24,11 +31,7 @@ class _DateScreenState extends State<DateScreen> {
     }
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
-        return InkWell(
-          onTap: () {
-            print('Tap!');
-          },
-          child: Card(
+          return Card(
             child: Padding(
               child: Text(
                 test[index],
@@ -36,10 +39,17 @@ class _DateScreenState extends State<DateScreen> {
               ),
               padding: EdgeInsets.all(10.0),
             ),
-          ),
-        );
+          );  
       },
       itemCount: test.length,
+    ); 
+  }
+
+  Widget submitButton(){
+    return RaisedButton(
+      onPressed: (){},
+      padding: EdgeInsets.only(right:100.0, left:100),
+      child: Text('Submit!'),
     );
   }
 }

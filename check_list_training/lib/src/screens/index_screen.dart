@@ -41,7 +41,7 @@ class _IndexScreenState extends State<IndexScreen> {
                 if (p.isCheck) print(p.name);
               }
             },
-            child: new Text('Save'),
+            child: new Text('Choose the date'),
           )
         ],
       ),
