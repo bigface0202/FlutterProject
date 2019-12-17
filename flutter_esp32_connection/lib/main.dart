@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'Dashboard.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       home: LoginScreen(title: 'ESP32 Temp & humid App'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -49,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen>{
       }
     });
 
-    _googleSignIn.signInSilently();
+    // _googleSignIn.signInSilently();
   }
 
   _handleFirebase() async{
@@ -63,6 +65,8 @@ class _LoginScreenState extends State<LoginScreen>{
 
     if (firebaseUser != null){
       print('Login');
+
+      Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context)=> new Dashboard()));
     }
   }
 
