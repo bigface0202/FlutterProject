@@ -21,14 +21,16 @@ class TransactionsList extends StatelessWidget {
           ),
           child: ListTile(
             leading: CircleAvatar(
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
               radius: 30,
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: FittedBox(
-                    child: Text('${transactions[index].spentTime} h')),
+                    child: Text('${transactions[index].spentTime} h', style: TextStyle(fontWeight: FontWeight.bold),)),
               ),
             ),
-            title: Text('${transactions[index].title}'),
+            title: Text('${transactions[index].title}',style:TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             subtitle: Text(
                 DateFormat.yMMMMEEEEd().format(transactions[index].date)),
           ),
