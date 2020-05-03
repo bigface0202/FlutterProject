@@ -27,12 +27,26 @@ class TransactionsList extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: FittedBox(
-                    child: Text('${transactions[index].spentTime} h', style: TextStyle(fontWeight: FontWeight.bold),)),
+                    child: Text(
+                  '${transactions[index].spentTime} h',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
               ),
             ),
-            title: Text('${transactions[index].title}',style:TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  '${transactions[index].subTitle}',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                Text('${transactions[index].title}',
+                    style: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold)),
+              ],
+            ),
             subtitle: Text(
-                DateFormat.yMMMMEEEEd().format(transactions[index].date)),
+              DateFormat.yMMMMEEEEd().format(transactions[index].date),
+            ),
           ),
         );
       },

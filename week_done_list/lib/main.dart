@@ -1,86 +1,61 @@
 import 'package:flutter/material.dart';
 
+import './screens/index_page.dart';
+import './screens/make_new_list.dart';
 import './models/transaction.dart';
-import './transactions_list.dart';
-import './new_transaction.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final List<Transaction> _userTransactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Shoulder',
+    //   spentTime: 1,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Chest',
+    //   spentTime: 2,
+    //   date: DateTime.now(),
+    // ),
+  ];
+
+  final Map<String, List<String>> _itemMap = {
+    'Sports': ['Soccer', 'Baseball', 'Workout'],
+    'Study': ['Math', 'English', 'Science'],
+  };
+
+  List<String> _muscleList = [];
+
+  void _addNewList(String listTitle) {
+    setState(() {
+      _muscleList.add(listTitle);
+    });
+  }
+
+  void _addNewMap(String keyName, List<String> itemList){
+    setState(() {
+      _itemMap[keyName] = itemList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'Shoulder',
-      spentTime: 1,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Chest',
-      spentTime: 2,
-      date: DateTime.now(),
-    ),
-  ];
-
-  void _addNewTransactions(
-      String txTitle, double txSpentTime, DateTime chosenDate) {
-    final newTx = Transaction(
-      title: txTitle,
-      spentTime: txSpentTime,
-      date: chosenDate,
-      id: DateTime.now().toString(),
-    );
-
-    setState(() {
-      _userTransactions.add(newTx);
-    });
-  }
-
-  void _startAddNewTransaction(BuildContext ctx) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: ctx,
-      builder: (_) {
-        return GestureDetector(
-          onTap: () {},
-          child: NewTransaction(_addNewTransactions),
-          behavior: HitTestBehavior.opaque,
-        );
+      // home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (ctx) => IndexPage(_userTransactions, _muscleList, _itemMap),
+        MakeNewList.routeName: (ctx) => MakeNewList(_addNewList, _addNewMap),
       },
-    );
-  }
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Training list')),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          TransactionsList(_userTransactions),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _startAddNewTransaction(context),
-      ),
     );
   }
 }
