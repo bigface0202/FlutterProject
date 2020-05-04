@@ -45,7 +45,8 @@ class _MakeNewListState extends State<MakeNewList> {
             top: 10,
             left: 10,
             right: 10,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 10,//Get Keyboard height + 10
+            bottom: MediaQuery.of(context).viewInsets.bottom +
+                10, //Get Keyboard height + 10
           ),
           child: Column(
             children: <Widget>[
@@ -79,12 +80,20 @@ class _MakeNewListState extends State<MakeNewList> {
                   ),
                 ],
               ),
-              for (int i = 0; i < _itemNum; i++)
-                TextField(
-                  decoration: InputDecoration(labelText: 'Item $i'),
-                  keyboardType: TextInputType.text,
-                  controller: _newItemListcontroller[i],
-                ),
+
+                   ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return TextField(
+                          decoration: InputDecoration(labelText: 'Item $index'),
+                          keyboardType: TextInputType.text,
+                          controller: _newItemListcontroller[index],
+                        );
+                      },
+                      itemCount: _itemNum,
+                    ),
+                   Container(),
               _newItemListcontroller.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.all(8.0),
