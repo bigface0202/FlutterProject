@@ -49,7 +49,7 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Training list')),
+      appBar: AppBar(title: Text('Week Done List')),
       drawer: MainDrawer(),
       body: Column(
         mainAxisSize: MainAxisSize.max,

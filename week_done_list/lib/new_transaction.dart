@@ -137,12 +137,19 @@ class _NewTransactionState extends State<NewTransaction> {
           ),
           Container(
             padding: EdgeInsets.all(10),
-            child: Text(
-              _selectedDate == null
-                  ? 'No date chosen'
-                  : 'Chosen date:${DateFormat.yMd().format(_selectedDate)}',
-              style: TextStyle(fontSize: 20),
-            ),
+            child: _selectedDate == null
+                ? Text(
+                    'No date chosen',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : Text(
+                    'Chosen date:${DateFormat.yMd().format(_selectedDate)}',
+                    style: TextStyle(fontSize: 20),
+                  ),
           ),
           FlatButton(
             color: Colors.green,

@@ -28,8 +28,9 @@ class _MyAppState extends State<MyApp> {
   ];
 
   final Map<String, List<String>> _itemMap = {
-    'Sports': ['Soccer', 'Baseball', 'Workout'],
+    'Training': ['Chest', 'Back', 'Legs'],
     'Study': ['Math', 'English', 'Science'],
+    'Coding': ['Flutter', 'Python', 'C#'],
   };
 
   List<String> _muscleList = [];
