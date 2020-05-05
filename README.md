@@ -12,7 +12,3 @@ TODO:
 - Add function of delete the unused list
 - Make graph of what did you done in a week
 - Make clear UI
-
-## Self introduction
-<img src="https://github.com/bigface0202/FlutterProject/blob/master/images/overview_selfintroduction.png" width="320">
-This is just practice to use Container, Column, Row, Text, etc.
