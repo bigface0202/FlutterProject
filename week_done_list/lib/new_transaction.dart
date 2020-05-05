@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:week_done_list/models/key_and_item.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
-  final List<String> muscleList;
-  final Map<String, List<String>> itemMap;
+  final List<KeyAndItem> userDoneChoices;
 
-  NewTransaction(this.addTx, this.muscleList, this.itemMap);
+  NewTransaction(this.addTx, this.userDoneChoices);
 
   @override
   _NewTransactionState createState() => _NewTransactionState();
@@ -16,10 +16,10 @@ class NewTransaction extends StatefulWidget {
 class _NewTransactionState extends State<NewTransaction> {
   // final _titleController = TextEditingController();
   final _spentTimeController = TextEditingController();
-  DateTime _selectedDate;
-  String _selectedMuscle = null;
-  String _selectedKey = null;
-  String _selectedItem = null;
+  DateTime _selectedDate = DateTime.now();
+  String _selectedKey;
+  int _selectedKeyNum;
+  String _selectedItem;
 
   void _submitData() {
     if (_spentTimeController.text.isEmpty) {
@@ -63,7 +63,6 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    // print(testMap.keys);
     return Container(
       padding: EdgeInsets.all(50),
       child: Column(
@@ -82,22 +81,18 @@ class _NewTransactionState extends State<NewTransaction> {
                   height: 2,
                   color: Colors.grey,
                 ),
-                onChanged: (String newValue) {
+                onChanged: (newValue) {
                   setState(() {
                     _selectedKey = newValue;
+                    _selectedKeyNum = widget.userDoneChoices.indexWhere((userDoneChoices) => userDoneChoices.key == newValue);
+                    _selectedItem = null;
                   });
                 },
-                items: widget.itemMap.keys
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+                items: widget.userDoneChoices.map((tx) =>DropdownMenuItem(value:tx.key, child:Text(tx.key))).toList(),
               ),
             ],
           ),
-          _selectedKey != null
+          _selectedKeyNum != null
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -112,12 +107,12 @@ class _NewTransactionState extends State<NewTransaction> {
                         height: 2,
                         color: Colors.grey,
                       ),
-                      onChanged: (String newValue) {
+                      onChanged: (newValue) {
                         setState(() {
                           _selectedItem = newValue;
                         });
                       },
-                      items: widget.itemMap[_selectedKey]
+                      items: widget.userDoneChoices[_selectedKeyNum].items
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -127,9 +122,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     ),
                   ],
                 )
-              : SizedBox(
-                  height: 50,
-                ),
+              : Container(),
           TextField(
             decoration: InputDecoration(labelText: 'Spent time'),
             keyboardType: TextInputType.number,
@@ -137,24 +130,15 @@ class _NewTransactionState extends State<NewTransaction> {
           ),
           Container(
             padding: EdgeInsets.all(10),
-            child: _selectedDate == null
-                ? Text(
-                    'No date chosen',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                : Text(
-                    'Chosen date:${DateFormat.yMd().format(_selectedDate)}',
-                    style: TextStyle(fontSize: 20),
-                  ),
+            child: Text(
+              'Chosen date: ${DateFormat.yMMMd().format(_selectedDate)}',
+              style: TextStyle(fontSize: 20),
+            ),
           ),
           FlatButton(
             color: Colors.green,
             textColor: Colors.white,
-            child: Text('Choose date'),
+            child: Text('Change date'),
             onPressed: _presentDatePicker,
           ),
           RaisedButton(

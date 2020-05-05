@@ -4,10 +4,9 @@ import '.././widgets/main_drawer.dart';
 
 class MakeNewList extends StatefulWidget {
   static const routeName = '/make-new-list';
-  final Function addList;
   final Function addMap;
 
-  MakeNewList(this.addList, this.addMap);
+  MakeNewList(this.addMap);
 
   @override
   _MakeNewListState createState() => _MakeNewListState();
@@ -80,20 +79,21 @@ class _MakeNewListState extends State<MakeNewList> {
                   ),
                 ],
               ),
-
-                   ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return TextField(
-                          decoration: InputDecoration(labelText: 'Item $index'),
-                          keyboardType: TextInputType.text,
-                          controller: _newItemListcontroller[index],
-                        );
-                      },
-                      itemCount: _itemNum,
-                    ),
-                   Container(),
+              SizedBox(
+                height: 400,
+                child: ListView.builder(
+                  // scrollDirection: Axis.vertical,
+                  // shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return TextField(
+                      decoration: InputDecoration(labelText: 'Item $index'),
+                      keyboardType: TextInputType.text,
+                      controller: _newItemListcontroller[index],
+                    );
+                  },
+                  itemCount: _itemNum,
+                ),
+              ),
               _newItemListcontroller.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.all(8.0),

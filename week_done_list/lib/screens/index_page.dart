@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '.././models/key_and_item.dart';
 import '.././widgets/main_drawer.dart';
 import '.././models/transaction.dart';
 import '.././transactions_list.dart';
@@ -7,9 +8,8 @@ import '.././new_transaction.dart';
 
 class IndexPage extends StatefulWidget {
   final List<Transaction> userTransactions;
-  final List<String> muscleList;
-  final Map<String, List<String>> itemMap;
-  IndexPage(this.userTransactions, this.muscleList, this.itemMap);
+  final List<KeyAndItem> userDoneChoices;
+  IndexPage(this.userTransactions, this.userDoneChoices);
 
   @override
   _IndexPageState createState() => _IndexPageState();
@@ -39,7 +39,7 @@ class _IndexPageState extends State<IndexPage> {
       builder: (_) {
         return GestureDetector(
           onTap: () {},
-          child: NewTransaction(_addNewTransactions, widget.muscleList, widget.itemMap),
+          child: NewTransaction(_addNewTransactions, widget.userDoneChoices),
           behavior: HitTestBehavior.opaque,
         );
       },
