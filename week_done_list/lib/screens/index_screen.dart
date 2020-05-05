@@ -6,19 +6,18 @@ import '.././models/transaction.dart';
 import '.././transactions_list.dart';
 import '.././new_transaction.dart';
 
-class IndexPage extends StatefulWidget {
+class IndexScreen extends StatefulWidget {
   final List<Transaction> userTransactions;
   final List<KeyAndItem> userDoneChoices;
-  IndexPage(this.userTransactions, this.userDoneChoices);
+  IndexScreen(this.userTransactions, this.userDoneChoices);
 
   @override
-  _IndexPageState createState() => _IndexPageState();
+  _IndexScreenState createState() => _IndexScreenState();
 }
 
-class _IndexPageState extends State<IndexPage> {
-
-  void _addNewTransactions(
-      String txTitle, String txSubTitle, double txSpentTime, DateTime chosenDate) {
+class _IndexScreenState extends State<IndexScreen> {
+  void _addNewTransactions(String txTitle, String txSubTitle,
+      double txSpentTime, DateTime chosenDate) {
     final newTx = Transaction(
       title: txTitle,
       subTitle: txSubTitle,
@@ -49,8 +48,6 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Week Done List')),
-      drawer: MainDrawer(),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[

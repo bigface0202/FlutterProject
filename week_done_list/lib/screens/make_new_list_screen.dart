@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 import '.././widgets/main_drawer.dart';
 
-class MakeNewList extends StatefulWidget {
+class MakeNewListScreen extends StatefulWidget {
   static const routeName = '/make-new-list';
   final Function addMap;
 
-  MakeNewList(this.addMap);
+  MakeNewListScreen(this.addMap);
 
   @override
-  _MakeNewListState createState() => _MakeNewListState();
+  _MakeNewListScreenState createState() => _MakeNewListScreenState();
 }
 
-class _MakeNewListState extends State<MakeNewList> {
+class _MakeNewListScreenState extends State<MakeNewListScreen> {
   final _newListController = TextEditingController();
   final _itemNumController = TextEditingController();
   final List<TextEditingController> _newItemListcontroller = [];

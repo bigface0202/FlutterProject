@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:week_done_list/screens/tabs_screen.dart';
 
-import './screens/index_page.dart';
-import './screens/make_new_list.dart';
+import './screens/index_screen.dart';
+import './screens/make_new_list_screen.dart';
 import './models/transaction.dart';
 import './models/key_and_item.dart';
 
@@ -53,8 +54,8 @@ class _MyAppState extends State<MyApp> {
       // home: MyHomePage(),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => IndexPage(_userTransactions, _userDoneChoices),
-        MakeNewList.routeName: (ctx) => MakeNewList(_addNewMap),
+        '/': (ctx) => TabsScreen(_userTransactions, _userDoneChoices),
+        MakeNewListScreen.routeName: (ctx) => MakeNewListScreen(_addNewMap),
       },
     );
   }
