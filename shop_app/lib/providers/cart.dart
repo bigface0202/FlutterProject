@@ -64,6 +64,7 @@ class Cart with ChangeNotifier {
   }
 
   void removeItem(String productId) {
+    //カートはidとカートの中身がMapで構成されているので，idを指定すれば中身を消せる
     _items.remove(productId);
     notifyListeners();
   }
