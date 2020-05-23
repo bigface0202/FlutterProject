@@ -44,6 +44,7 @@ class Orders with ChangeNotifier {
         OrderItem(
           id: orderId,
           amount: orderData['amount'],
+          dateTime: DateTime.parse(orderData['dateTime']),
           products: (orderData['products'] as List<dynamic>)
               .map(
                 (item) => CartItem(
@@ -54,7 +55,6 @@ class Orders with ChangeNotifier {
                 ),
               )
               .toList(),
-          dateTime: DateTime.parse(orderData['dateTime']),
         ),
       );
     });
