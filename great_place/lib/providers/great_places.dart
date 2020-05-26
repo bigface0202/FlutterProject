@@ -22,7 +22,7 @@ class GreatPlaces with ChangeNotifier {
     File pickedImage,
     PlaceLocation pickedLocation,
   ) async {
-    final address = await LocationHelper.getPlaceAddress(
+    final address = await LocationHelper.getPlaceAddress(//URLに入力して，住所を取ってくるので非同期になる
         pickedLocation.latitude, pickedLocation.longitude);
     final updatedLocation = PlaceLocation(
         latitude: pickedLocation.latitude,
