@@ -41,6 +41,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     super.initState();
   }
 
+  //編集しようとしている商品の初期値（現在設定されている値）をとってくる
   @override
   void didChangeDependencies() {
     if (_isInit) {
